@@ -1,4 +1,4 @@
-# myapp.rb
+# connexionz_sms.rb
  require 'sinatra'
  require 'connexionz'
  require 'smsified'
