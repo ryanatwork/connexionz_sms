@@ -60,4 +60,4 @@ Credits
 Copyright
 ---------
 Copyright (c) 2011 Ryan Resella
-See [LICENSE](https://github.com/ryanatwork/connexionz_sms/blob/master/LICENSE) for details.
+See [LICENSE](https://github.com/ryanatwork/connexionz_sms/blob/master/LICENSE.mkd) for details.
