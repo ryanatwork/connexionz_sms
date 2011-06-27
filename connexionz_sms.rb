@@ -10,7 +10,7 @@
  
  
  get '/' do
-   'Hello world!'
+   "Real time Bus Notification System for SMS.  Text the bus stop number to 585-326-0523 (example 10279)"
  end
  
  get '/hello/:name' do
