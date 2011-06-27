@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/spec_helper'
 
-describe 'The HelloWorld App' do
-  it "says hello" do
+describe 'Connexionz SMS Application' do
+  it "Should return the home page" do
     get '/'
     last_response.should be_ok
   end
