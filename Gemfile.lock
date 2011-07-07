@@ -45,7 +45,7 @@ GEM
     sinatra (1.2.6)
       rack (~> 1.1)
       tilt (< 2.0, >= 1.2.2)
-    smsified (0.1.4)
+    smsified (0.1.6)
       httparty
     thin (1.2.11)
       daemons (>= 1.0.9)
@@ -64,5 +64,5 @@ DEPENDENCIES
   rake
   rspec
   sinatra
-  smsified
+  smsified (= 0.1.6)
   thin
