@@ -42,6 +42,9 @@ GEM
     rspec-expectations (2.6.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.6.0)
+    simplecov (0.4.2)
+      simplecov-html (~> 0.4.4)
+    simplecov-html (0.4.5)
     sinatra (1.2.6)
       rack (~> 1.1)
       tilt (< 2.0, >= 1.2.2)
@@ -63,6 +66,7 @@ DEPENDENCIES
   rack-test
   rake
   rspec
+  simplecov
   sinatra
-  smsified (= 0.1.6)
+  smsified
   thin
