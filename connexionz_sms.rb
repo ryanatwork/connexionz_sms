@@ -36,7 +36,7 @@
        @platforms = @platform_info.route_position_et.platform.route
 
        @platforms.each do |platform|
-         sms_message += "Route #{platform.route_no} -Destination #{platform.destination.name} -ETA #{platform.destination.trip.eta } minutes"
+         sms_message += "Route #{platform.route_no}-Destination #{platform.destination.name}-ETA #{platform.destination.trip.eta } minutes "
        end
      else
        route_no = @platform_info.route_position_et.platform.route.route_no
@@ -46,7 +46,7 @@
      end
    end
 
-   sms_message
+   sms_message.rstrip
  end
 
 
@@ -79,7 +79,7 @@ post '/incoming' do
         @platforms = @platform_info.route_position_et.platform.route
 
         @platforms.each do |platform|
-          sms_message += "Route #{platform.route_no} -Destination #{platform.destination.name} -ETA #{platform.destination.trip.eta } minutes"
+          sms_message += "Route #{platform.route_no}-Destination #{platform.destination.name}-ETA #{platform.destination.trip.eta } minutes "
         end
       else
         route_no = @platform_info.route_position_et.platform.route.route_no
@@ -89,7 +89,7 @@ post '/incoming' do
       end
    end
 
-   puts sms_message
+   puts sms_message.rstrip
 
    oneapi = Smsified::OneAPI.new(:username => settings.sms_user, :password => settings.password)
    oneapi.send_sms :address => callerID, :message => sms_message, :sender_address => settings.sender_phone
