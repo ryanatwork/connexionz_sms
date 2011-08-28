@@ -4,6 +4,7 @@ gem 'sinatra'
 gem 'thin'
 
 gem 'connexionz'
+gem 'haml'
 gem 'json'
 gem 'smsified'
 gem 'rake'

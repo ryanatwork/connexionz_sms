@@ -1,6 +1,7 @@
 # connexionz_sms.rb
  require 'sinatra'
  require 'connexionz'
+ require 'haml'
  require 'smsified'
  require 'json'
 
