@@ -11,7 +11,7 @@ Installation
 
 Continuous Integration
 ----------------------
-[![Build Status](https://travis-ci.org/ryanatwork/connexionz_sms.png)](http://travis-ci.org/ryanatwork/connexionz_sms)
+[![Build Status](https://secure.travis-ci.org/ryanatwork/connexionz_sms.png)](http://travis-ci.org/ryanatwork/connexionz_sms)
 
 
 Contributing
@@ -54,7 +54,8 @@ Submitting a Pull Request
 
 Credits
 -------
-[Connexionz](http://www.connexionz.co.nz/) [SMSified](http://www.smsified.com/)
+[Connexionz](http://www.connexionz.co.nz/)
+[SMSified](http://www.smsified.com/)
 
 
 Copyright
