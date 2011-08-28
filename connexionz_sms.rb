@@ -52,9 +52,6 @@
 
 post '/incoming' do
 
-  puts response
-
-
    response = request.env["rack.input"].read
    response = JSON.parse(response)
 
