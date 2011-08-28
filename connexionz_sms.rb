@@ -10,7 +10,7 @@
  set :sender_phone, ENV['SMS_PHONE'] || '555-555-1212'
 
  get '/' do
-   "Real time Bus Notification System for SMS.  Text the bus stop number to 585-326-0523 (example 10279)"
+   haml :root
  end
 
  get '/hello/:name' do

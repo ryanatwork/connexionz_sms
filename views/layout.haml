@@ -1,0 +1,14 @@
+!!!
+%html
+  %head
+    %title= "SMS 2 Bus"
+    %link{:href => 'http://twitter.github.com/bootstrap/assets/css/bootstrap-1.1.1.min.css', :rel => 'stylesheet', :type => 'text/css'}
+  %body
+    %div.container
+      #header
+        #logo
+          %h1
+            SMS 2 Bus
+      #content= yield
+      #footer
+        %p#legal= "&mdash; &copy; #{Time.now.strftime('%Y')}  &mdash;"
