@@ -65,7 +65,6 @@ PLATFORMS
 DEPENDENCIES
   connexionz
   json
-  patron (= 0.4.9)
   rack-test
   rake
   rspec
