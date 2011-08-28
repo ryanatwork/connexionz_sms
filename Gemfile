@@ -13,4 +13,5 @@ gem 'rake'
 
 group :development, :test do
   gem 'simplecov'
+  gem 'webmock'
 end
