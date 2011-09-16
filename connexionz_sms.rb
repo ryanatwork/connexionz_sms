@@ -48,9 +48,9 @@
 post '/incoming' do
 
    response = request.env["rack.input"].read
-   response = JSON.parse(response)
-
    puts response.inspect
+
+   response = JSON.parse(response)
 
    message =  response["inboundSMSMessageNotification"]["inboundSMSMessage"]["message"]
    callerID =  response["inboundSMSMessageNotification"]["inboundSMSMessage"]["senderAddress"]
