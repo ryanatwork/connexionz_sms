@@ -13,12 +13,6 @@
    haml :root
  end
 
- get '/hello/:name' do
-   # matches "GET /hello/foo" and "GET /hello/bar"
-   # params[:name] is 'foo' or 'bar'
-   "Hello #{params[:name]}!"
- end
-
  get '/route_et/:name' do
    #matches "GET /route_et/19812"
    @client = Connexionz::Client.new({:endpoint => "http://12.233.207.166/"})

@@ -9,14 +9,6 @@ describe 'Connexionz SMS Application' do
     end
   end
 
-  describe "passing a parameter" do
-    it "returns a parameter" do
-      get '/hello/ryan'
-      last_response.should be_ok
-      last_response.body.should == 'Hello ryan!'
-    end
-  end
-
   describe "route_et" do
     it "should return no bus stop found" do
       stub_request(:get, "http://12.233.207.166/rtt/public/utility/file.aspx?contenttype=SQLXML&Name=RoutePositionET.xml&platformno=10000").
