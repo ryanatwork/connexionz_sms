@@ -69,7 +69,6 @@ DEPENDENCIES
   connexionz
   haml
   json
-  patron
   rack-test
   rake
   rspec
