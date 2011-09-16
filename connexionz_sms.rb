@@ -15,7 +15,7 @@
 
  get '/route_et/:name' do
    #matches "GET /route_et/19812"
-   @client = Connexionz::Client.new({:endpoint => "http://12.233.207.166/"})
+   @client = Connexionz::Client.new({:endpoint => "http://businfo.santa-clarita.com"})
    @platform_info = @client.route_position_et({:platformno => "#{params[:name]}"})
 
    if @platform_info.route_position_et.platform.nil?
@@ -53,13 +53,19 @@ post '/incoming' do
    message =  response["inboundSMSMessageNotification"]["inboundSMSMessage"]["message"]
    callerID =  response["inboundSMSMessageNotification"]["inboundSMSMessage"]["senderAddress"]
    time =  response["inboundSMSMessageNotification"]["inboundSMSMessage"]["dateTime"]
+   destination = response["inboundSMSMessageNotification"]["inboundSMSMessage"]["destinationAddress"]
 
    text = "From: #{callerID} \nMessage: #{message}\nDate & Time: #{time}\n\n"
 
    puts text
    puts message
 
-   @client = Connexionz::Client.new({:endpoint => "http://12.233.207.166/"})
+   if destination == "5717621172"
+     @client = Connexionz::Client.new({:endpoint => "http://realtime.commuterpage.com/"})
+   else #default to Santa Clarita
+    @client = Connexionz::Client.new({:endpoint => "http://businfo.santa-clarita.com"})
+   end
+
    @platform_info = @client.route_position_et({:platformno => "#{message}"})
    if @platform_info.route_position_et.platform.nil?
       sms_message = "No bus stop found"
