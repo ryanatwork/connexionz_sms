@@ -147,7 +147,7 @@ describe 'Connexionz SMS Application' do
                 "inboundSMSMessageNotification": {
                   "inboundSMSMessage": {
                     "dateTime": "2011-05-11T18:05:54.546Z",
-                    "destinationAddress": "5717621172",
+                    "destinationAddress": "15717621172",
                     "message": "87017",
                     "messageId": "ef795d3dac56a62fef3ff1852b0c123a",
                     "senderAddress": "14075550100"
