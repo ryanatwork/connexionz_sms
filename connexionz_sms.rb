@@ -60,10 +60,12 @@ post '/incoming' do
    puts text
    puts message
 
+   puts "desination - #{destination}"
+
    if destination == "5717621172"
      @client = Connexionz::Client.new({:endpoint => "http://realtime.commuterpage.com/"})
    else #default to Santa Clarita
-    @client = Connexionz::Client.new({:endpoint => "http://businfo.santa-clarita.com"})
+     @client = Connexionz::Client.new({:endpoint => "http://businfo.santa-clarita.com"})
    end
 
    @platform_info = @client.route_position_et({:platformno => "#{message}"})
