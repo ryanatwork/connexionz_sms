@@ -44,13 +44,10 @@
    sms_message.rstrip
  end
 
+ post '/incoming' do
 
-post '/incoming' do
-
-   response = request.env["rack.input"].read
+   response = JSON.parse(request.body.read.to_s)
    puts response.inspect
-
-   response = JSON.parse(response)
 
    message =  response["inboundSMSMessageNotification"]["inboundSMSMessage"]["message"]
    callerID =  response["inboundSMSMessageNotification"]["inboundSMSMessage"]["senderAddress"]
