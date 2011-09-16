@@ -6,7 +6,7 @@ gem 'thin'
 gem 'connexionz'
 gem 'haml'
 gem 'json'
-gem 'patron', '0.4.9'
+gem 'patron', '~> 0.4.14'
 gem 'smsified'
 gem 'rake'
 
