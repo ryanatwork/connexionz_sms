@@ -15,43 +15,30 @@
    haml :root
  end
 
- get '/route_et/:name' do
+ get '/sc/:name' do
    #matches "GET /route_et/19812"
    @client = Connexionz::Client.new({:endpoint => "http://12.233.207.166"})
    @platform_info = @client.route_position_et({:platformno => "#{params[:name]}"})
 
-   if @platform_info.route_position_et.platform.nil?
-     sms_message = "No bus stop found"
-   else
-     name = @platform_info.route_position_et.platform.name
-     arrival_scope = @platform_info.route_position_et.content.max_arrival_scope
-     sms_message = ""
-     eta = ""
-
-     if @platform_info.route_position_et.platform.route.nil?
-       sms_message = "No arrivals for next #{arrival_scope} minutes"
-     elsif @platform_info.route_position_et.platform.route.class == Array
-       @platforms = @platform_info.route_position_et.platform.route
-
-       @platforms.each do |platform|
-         sms_message += "Route #{platform.route_no}-Destination #{platform.destination.name}-ETA #{platform.destination.trip.eta } minutes "
-       end
-     else
-       route_no = @platform_info.route_position_et.platform.route.route_no
-       destination = @platform_info.route_position_et.platform.route.destination.name
-       if @platform_info.route_position_et.platform.route.destination.trip.is_a?(Array)
-         @platform_info.route_position_et.platform.route.destination.trip.each do |mult_eta|
-           eta += "#{mult_eta.eta} min "
-         end
-       else
-         eta = "#{@platform_info.route_position_et.platform.route.destination.trip.eta} min"
-       end
-       sms_message = "Route #{route_no} " + "-Destination #{destination} " + "-ETA #{eta} "
-     end
-   end
-
-   sms_message.rstrip
+   get_et_info(@platform_info)
  end
+
+ get '/va/:name' do
+   #matches "GET /route_et/19812"
+   @client = Connexionz::Client.new({:endpoint => "http://realtime.commuterpage.com"})
+   @platform_info = @client.route_position_et({:platformno => "#{params[:name]}"})
+
+   get_et_info(@platform_info)
+ end
+
+get '/char/:name' do
+   #matches "GET /route_et/19812"
+   @client = Connexionz::Client.new({:endpoint => "http://avlweb.charlottesville.org"})
+   @platform_info = @client.route_position_et({:platformno => "#{params[:name]}"})
+
+   get_et_info(@platform_info)
+ end
+
 
  post '/incoming' do
 
@@ -74,9 +61,22 @@
    end
 
    @platform_info = @client.route_position_et({:platformno => "#{message}"})
+
+   sms_message = get_et_info(@platform_info)
+
+   oneapi = Smsified::OneAPI.new(:username => settings.sms_user, :password => settings.password)
+   oneapi.send_sms :address => callerID, :message => sms_message, :sender_address => sent_to
+
+   puts sms_message
+
+end
+
+ def get_et_info(platform)
+   @platform_info = platform
+
    if @platform_info.route_position_et.platform.nil?
-      sms_message = "No bus stop found"
-    else
+     sms_message = "No bus stop found"
+   else
       name = @platform_info.route_position_et.platform.name
       arrival_scope = @platform_info.route_position_et.content.max_arrival_scope
       sms_message = ""
@@ -85,7 +85,6 @@
         sms_message = "No arrivals for next #{arrival_scope} minutes"
       elsif @platform_info.route_position_et.platform.route.class == Array
         @platforms = @platform_info.route_position_et.platform.route
-
         @platforms.each do |platform|
           sms_message += "Route #{platform.route_no}-Destination #{platform.destination.name}-ETA #{platform.destination.trip.eta } minutes "
         end
@@ -102,10 +101,5 @@
        sms_message = "Route #{route_no} " + "-Destination #{destination} " + "-ETA #{eta}"
       end
    end
-
-   oneapi = Smsified::OneAPI.new(:username => settings.sms_user, :password => settings.password)
-   oneapi.send_sms :address => callerID, :message => sms_message, :sender_address => sent_to
-
-   puts sms_message
-
-end
+  sms_message
+ end
