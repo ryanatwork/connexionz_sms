@@ -9,6 +9,7 @@
  set :password, ENV['PASSWORD']
  set :sender_phone, ENV['SMS_PHONE']
  set :va_phone, ENV['VA_PHONE']
+ set :char_phone, ENV['CHAR_PHONE']
 
  get '/' do
    haml :root
@@ -54,8 +55,6 @@
 
  post '/incoming' do
 
-   puts "Hello"
-
    response = JSON.parse(request.env["rack.input"].read)
 
    message =  response["inboundSMSMessageNotification"]["inboundSMSMessage"]["message"]
@@ -68,6 +67,8 @@
 
    if sent_to == settings.va_phone
      @client = Connexionz::Client.new({:endpoint => "http://realtime.commuterpage.com"})
+   elsif sent_to == settings.char_phone
+    @client = Connexionz::Client.new({:endpoint => "http://avlweb.charlottesville.org"})
    else #default to Santa Clarita
      @client = Connexionz::Client.new({:endpoint => "http://12.233.207.166"})
    end
@@ -79,7 +80,7 @@
       name = @platform_info.route_position_et.platform.name
       arrival_scope = @platform_info.route_position_et.content.max_arrival_scope
       sms_message = ""
-
+      eta = ""
       if @platform_info.route_position_et.platform.route.nil?
         sms_message = "No arrivals for next #{arrival_scope} minutes"
       elsif @platform_info.route_position_et.platform.route.class == Array
@@ -91,8 +92,14 @@
       else
         route_no = @platform_info.route_position_et.platform.route.route_no
         destination = @platform_info.route_position_et.platform.route.destination.name
-        eta = @platform_info.route_position_et.platform.route.destination.trip.eta
-        sms_message = "Route #{route_no} " + "-Destination #{destination} " + "-ETA #{eta} minutes"
+        if @platform_info.route_position_et.platform.route.destination.trip.is_a?(Array)
+         @platform_info.route_position_et.platform.route.destination.trip.each do |mult_eta|
+           eta += "#{mult_eta.eta} min "
+         end
+       else
+         eta = "#{@platform_info.route_position_et.platform.route.destination.trip.eta} min"
+       end
+       sms_message = "Route #{route_no} " + "-Destination #{destination} " + "-ETA #{eta}"
       end
    end
 

@@ -7,6 +7,7 @@ describe 'Connexionz SMS Application' do
     set :password,'secret'
     set :sender_phone, '555-555-1212'
     set :va_phone, '15555551234'
+    set :char_phone, '15551234567'
   end
 
   describe "the home page" do
@@ -128,7 +129,7 @@ describe 'Connexionz SMS Application' do
       last_response.should be_ok
     end
 
-    it "should return no arrivals for next 30 minutes" do
+    it "should return the next arrivals for one stop" do
       json = '{
                 "inboundSMSMessageNotification": {
                   "inboundSMSMessage": {
@@ -145,7 +146,7 @@ describe 'Connexionz SMS Application' do
         to_return(:status => 200, :body => fixture("one_arrival.xml"))
 
       stub_request(:post, "https://foo:secret@api.smsified.com/v1/smsmessaging/outbound/16575550100/requests").
-         with(:body => {"address"=>"14075550100", "message"=>"Route 2 -Destination Val Verde -ETA 20 minutes"},
+         with(:body => {"address"=>"14075550100", "message"=>"Route 2 -Destination Val Verde -ETA 20 min"},
               :headers => {'Accept'=>'application/json', 'Content-Type'=>'application/x-www-form-urlencoded'}).
          to_return(:status => 200, :body => "", :headers => {})
 
@@ -172,7 +173,34 @@ describe 'Connexionz SMS Application' do
           to_return(:status => 200, :body => fixture("va_single.xml"))
 
       stub_request(:post, "https://foo:secret@api.smsified.com/v1/smsmessaging/outbound/15555551234/requests").
-         with(:body => {"address"=>"14075550100", "message"=>"Route 87 -Destination Shirlington Station -ETA 17 minutes"},
+         with(:body => {"address"=>"14075550100", "message"=>"Route 87 -Destination Shirlington Station -ETA 17 min"},
+              :headers => {'Accept'=>'application/json', 'Content-Type'=>'application/x-www-form-urlencoded'}).
+         to_return(:status => 200, :body => "", :headers => {})
+
+      post :incoming, json
+      last_response.should be_ok
+    end
+  end
+
+  describe "it should return arrival times for Charlottesville, VA" do
+    it "should return a single arrival time" do
+      json = '{
+                "inboundSMSMessageNotification": {
+                  "inboundSMSMessage": {
+                    "dateTime": "2011-05-11T18:05:54.546Z",
+                    "destinationAddress": "15551234567",
+                    "message": "87017",
+                    "messageId": "ef795d3dac56a62fef3ff1852b0c123a",
+                    "senderAddress": "14075550100"
+                  }
+                }
+              }'
+
+      stub_request(:get, "http://avlweb.charlottesville.org/rtt/public/utility/file.aspx?Name=RoutePositionET.xml&contenttype=SQLXML&platformno=87017").
+          to_return(:status => 200, :body => fixture("charlotesville.xml"))
+
+      stub_request(:post, "https://foo:secret@api.smsified.com/v1/smsmessaging/outbound/15551234567/requests").
+         with(:body => {"address"=>"14075550100", "message"=>"Route ULA -Destination University Loop via Stadium -ETA 1 min 16 min "},
               :headers => {'Accept'=>'application/json', 'Content-Type'=>'application/x-www-form-urlencoded'}).
          to_return(:status => 200, :body => "", :headers => {})
 
