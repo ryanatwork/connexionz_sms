@@ -11,7 +11,8 @@ Installation
 Testing
 -------
 You can test this by passing json to Sinatra
-    curl -v -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"inboundSMSMessageNotification":
+  curl -v -H "Accept: application/json" -H "Content-type: application/json" -X POST -d
+  '{"inboundSMSMessageNotification":
     {"inboundSMSMessage":
         {"destinationAddress":"tel:+1xxxxxxxxxx",
          "senderAddress":"tel:+1xxxxxxxxx",
@@ -19,7 +20,14 @@ You can test this by passing json to Sinatra
          "messageId":"3034c89c31eecd1d0b86d5e4a5b82dc1",
          "dateTime":"2011-05-23T17:34:54.823Z"}
     }
-}'http://localhost:3000/incoming
+  }'http://localhost:3000/incoming
+
+Setup
+-----
+There are two envrionment variables to setup for SMSified
+ENV['SMS_USER']
+ENV['PASSWORD']
+
 
 Continuous Integration
 ----------------------
