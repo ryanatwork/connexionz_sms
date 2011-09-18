@@ -46,6 +46,8 @@
 
  post '/incoming' do
 
+   puts "Hello"
+
    response = JSON.parse(request.body.read.to_s)
    puts response.inspect
 
