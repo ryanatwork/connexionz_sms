@@ -25,6 +25,7 @@
      name = @platform_info.route_position_et.platform.name
      arrival_scope = @platform_info.route_position_et.content.max_arrival_scope
      sms_message = ""
+     eta = ""
 
      if @platform_info.route_position_et.platform.route.nil?
        sms_message = "No arrivals for next #{arrival_scope} minutes"
@@ -37,8 +38,14 @@
      else
        route_no = @platform_info.route_position_et.platform.route.route_no
        destination = @platform_info.route_position_et.platform.route.destination.name
-       eta = @platform_info.route_position_et.platform.route.destination.trip.eta
-       sms_message = "Route #{route_no} " + "-Destination #{destination} " + "-ETA #{eta} minutes"
+       if @platform_info.route_position_et.platform.route.destination.trip.is_a?(Array)
+         @platform_info.route_position_et.platform.route.destination.trip.each do |mult_eta|
+           eta += "#{mult_eta.eta} min "
+         end
+       else
+         eta = "#{@platform_info.route_position_et.platform.route.destination.trip.eta} min"
+       end
+       sms_message = "Route #{route_no} " + "-Destination #{destination} " + "-ETA #{eta} "
      end
    end
 

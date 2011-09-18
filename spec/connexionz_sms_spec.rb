@@ -38,15 +38,21 @@ describe 'Connexionz SMS Application' do
         to_return(:status => 200, :body => fixture("one_arrival.xml"))
       get '/route_et/10656'
       last_response.should be_ok
-      last_response.body.should =="Route 2 -Destination Val Verde -ETA 20 minutes"
+      last_response.body.should =="Route 2 -Destination Val Verde -ETA 20 min"
     end
-
 
     it "should return the time for the next arrival" do
       stub_request(:get, "http://12.233.207.166/rtt/public/utility/file.aspx?contenttype=SQLXML&Name=RoutePositionET.xml&platformno=10246").
         to_return(:status => 200, :body => fixture("route_et.xml"))
       get '/route_et/10246'
       last_response.body.should == "Route 1-Destination Castaic-ETA 24 minutes Route 4-Destination LARC-ETA 19 minutes Route 6-Destination Shadow Pines-ETA 17 minutes Route 14-Destination Plum Cyn-ETA 11 minutes"
+    end
+
+    it "should return the time for the same stop with multiple arrivals" do
+      stub_request(:get, "http://12.233.207.166/rtt/public/utility/file.aspx?contenttype=SQLXML&Name=RoutePositionET.xml&platformno=10687").
+        to_return(:status => 200, :body => fixture("charlotesville.xml"))
+      get '/route_et/10687'
+      last_response.body.should == "Route ULA -Destination University Loop via Stadium -ETA 1 min 16 min"
     end
   end
 
