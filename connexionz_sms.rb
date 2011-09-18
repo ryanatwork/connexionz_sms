@@ -8,6 +8,7 @@
  set :sms_user, ENV['SMS_USER'] || 'foo'
  set :password, ENV['PASSWORD'] || 'secret'
  set :sender_phone, ENV['SMS_PHONE'] || '555-555-1212'
+ set :va_phone, ENV['VA_PHONE'] || '15555551234'
 
  get '/' do
    haml :root
@@ -57,7 +58,9 @@
 
    text = "From: #{callerID} \nMessage: #{message}\nDate & Time: #{time}\n\n"
 
-   if destination == "15717621172"
+   puts "dest #{settings.va_phone}"
+
+   if destination == settings.va_phone
      @client = Connexionz::Client.new({:endpoint => "http://realtime.commuterpage.com"})
    else #default to Santa Clarita
      @client = Connexionz::Client.new({:endpoint => "http://12.233.207.166"})
