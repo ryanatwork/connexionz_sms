@@ -54,13 +54,12 @@
    message =  response["inboundSMSMessageNotification"]["inboundSMSMessage"]["message"]
    callerID =  response["inboundSMSMessageNotification"]["inboundSMSMessage"]["senderAddress"]
    time =  response["inboundSMSMessageNotification"]["inboundSMSMessage"]["dateTime"]
-   destination = response["inboundSMSMessageNotification"]["inboundSMSMessage"]["destinationAddress"]
+   sent_to = response["inboundSMSMessageNotification"]["inboundSMSMessage"]["destinationAddress"]
 
-   text = "From: #{callerID} \nMessage: #{message}\nDate & Time: #{time}\n\n"
+   text = "To: #{sent_to}\nFrom: #{callerID} \nMessage: #{message}\nDate & Time: #{time}\n\n"
+   puts text
 
-   puts "dest #{settings.va_phone}"
-
-   if destination == settings.va_phone
+   if sent_to == settings.va_phone
      @client = Connexionz::Client.new({:endpoint => "http://realtime.commuterpage.com"})
    else #default to Santa Clarita
      @client = Connexionz::Client.new({:endpoint => "http://12.233.207.166"})
@@ -91,7 +90,7 @@
    end
 
    oneapi = Smsified::OneAPI.new(:username => settings.sms_user, :password => settings.password)
-   oneapi.send_sms :address => callerID, :message => sms_message, :sender_address => settings.sender_phone
+   oneapi.send_sms :address => callerID, :message => sms_message, :sender_address => sent_to
 
    puts sms_message
 

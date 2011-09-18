@@ -66,7 +66,7 @@ describe 'Connexionz SMS Application' do
       stub_request(:get, "http://12.233.207.166/rtt/public/utility/file.aspx?Name=RoutePositionET.xml&contenttype=SQLXML&platformno=10000").
         to_return(:status => 200, :body => fixture("no_platform.xml"))
 
-      stub_request(:post, "https://foo:secret@api.smsified.com/v1/smsmessaging/outbound/555-555-1212/requests").
+      stub_request(:post, "https://foo:secret@api.smsified.com/v1/smsmessaging/outbound/16575550100/requests").
          with(:body => {"address"=>"14075550100", "message"=>"No bus stop found"}).
          to_return(:status => 200, :body => "", :headers => {})
 
@@ -89,7 +89,7 @@ describe 'Connexionz SMS Application' do
       stub_request(:get, "http://12.233.207.166/rtt/public/utility/file.aspx?Name=RoutePositionET.xml&contenttype=SQLXML&platformno=15414").
         to_return(:status => 200, :body => fixture("no_arrivals.xml"))
 
-      stub_request(:post, "https://foo:secret@api.smsified.com/v1/smsmessaging/outbound/555-555-1212/requests").
+      stub_request(:post, "https://foo:secret@api.smsified.com/v1/smsmessaging/outbound/16575550100/requests").
          with(:body => {"address"=>"14075550100", "message"=>"No arrivals for next 30 minutes"}).
          to_return(:status => 200, :body => "", :headers => {})
 
@@ -113,7 +113,7 @@ describe 'Connexionz SMS Application' do
       stub_request(:get, "http://12.233.207.166/rtt/public/utility/file.aspx?Name=RoutePositionET.xml&contenttype=SQLXML&platformno=10246").
         to_return(:status => 200, :body => fixture("route_et.xml"))
 
-      stub_request(:post, "https://foo:secret@api.smsified.com/v1/smsmessaging/outbound/555-555-1212/requests").
+      stub_request(:post, "https://foo:secret@api.smsified.com/v1/smsmessaging/outbound/16575550100/requests").
          with(:body => {"address"=>"14075550100", "message"=>"Route 1-Destination Castaic-ETA 24 minutes Route 4-Destination LARC-ETA 19 minutes Route 6-Destination Shadow Pines-ETA 17 minutes Route 14-Destination Plum Cyn-ETA 11 minutes "},
               :headers => {'Accept'=>'application/json', 'Content-Type'=>'application/x-www-form-urlencoded'}).
          to_return(:status => 200, :body => "", :headers => {})
@@ -138,7 +138,7 @@ describe 'Connexionz SMS Application' do
       stub_request(:get, "http://12.233.207.166/rtt/public/utility/file.aspx?Name=RoutePositionET.xml&contenttype=SQLXML&platformno=10656").
         to_return(:status => 200, :body => fixture("one_arrival.xml"))
 
-      stub_request(:post, "https://foo:secret@api.smsified.com/v1/smsmessaging/outbound/555-555-1212/requests").
+      stub_request(:post, "https://foo:secret@api.smsified.com/v1/smsmessaging/outbound/16575550100/requests").
          with(:body => {"address"=>"14075550100", "message"=>"Route 2 -Destination Val Verde -ETA 20 minutes"},
               :headers => {'Accept'=>'application/json', 'Content-Type'=>'application/x-www-form-urlencoded'}).
          to_return(:status => 200, :body => "", :headers => {})
@@ -165,7 +165,7 @@ describe 'Connexionz SMS Application' do
       stub_request(:get, "http://realtime.commuterpage.com/rtt/public/utility/file.aspx?Name=RoutePositionET.xml&contenttype=SQLXML&platformno=87017").
           to_return(:status => 200, :body => fixture("va_single.xml"))
 
-      stub_request(:post, "https://foo:secret@api.smsified.com/v1/smsmessaging/outbound/555-555-1212/requests").
+      stub_request(:post, "https://foo:secret@api.smsified.com/v1/smsmessaging/outbound/15555551234/requests").
          with(:body => {"address"=>"14075550100", "message"=>"Route 87 -Destination Shirlington Station -ETA 17 minutes"},
               :headers => {'Accept'=>'application/json', 'Content-Type'=>'application/x-www-form-urlencoded'}).
          to_return(:status => 200, :body => "", :headers => {})
