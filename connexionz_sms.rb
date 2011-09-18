@@ -48,7 +48,8 @@
 
    puts "Hello"
 
-   response = JSON.parse(request.body.read.to_s)
+   response = JSON.parse(request.env["rack.input"].read)
+
    puts response.inspect
 
    message =  response["inboundSMSMessageNotification"]["inboundSMSMessage"]["message"]
