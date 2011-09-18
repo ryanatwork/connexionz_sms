@@ -50,19 +50,12 @@
 
    response = JSON.parse(request.env["rack.input"].read)
 
-   puts response.inspect
-
    message =  response["inboundSMSMessageNotification"]["inboundSMSMessage"]["message"]
    callerID =  response["inboundSMSMessageNotification"]["inboundSMSMessage"]["senderAddress"]
    time =  response["inboundSMSMessageNotification"]["inboundSMSMessage"]["dateTime"]
    destination = response["inboundSMSMessageNotification"]["inboundSMSMessage"]["destinationAddress"]
 
    text = "From: #{callerID} \nMessage: #{message}\nDate & Time: #{time}\n\n"
-
-   puts text
-   puts message
-
-   puts "desination - #{destination}"
 
    if destination == "15717621172"
      @client = Connexionz::Client.new({:endpoint => "http://realtime.commuterpage.com"})
@@ -94,9 +87,9 @@
       end
    end
 
-   puts sms_message.rstrip
-
    oneapi = Smsified::OneAPI.new(:username => settings.sms_user, :password => settings.password)
    oneapi.send_sms :address => callerID, :message => sms_message, :sender_address => settings.sender_phone
+
+   puts sms_message
 
 end
