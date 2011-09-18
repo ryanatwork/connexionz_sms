@@ -15,7 +15,7 @@
 
  get '/route_et/:name' do
    #matches "GET /route_et/19812"
-   @client = Connexionz::Client.new({:endpoint => "http://businfo.santa-clarita.com"})
+   @client = Connexionz::Client.new({:endpoint => "http://12.233.207.166"})
    @platform_info = @client.route_position_et({:platformno => "#{params[:name]}"})
 
    if @platform_info.route_position_et.platform.nil?
@@ -64,7 +64,7 @@
    if destination == "15717621172"
      @client = Connexionz::Client.new({:endpoint => "http://realtime.commuterpage.com"})
    else #default to Santa Clarita
-     @client = Connexionz::Client.new({:endpoint => "http://businfo.santa-clarita.com"})
+     @client = Connexionz::Client.new({:endpoint => "http://12.233.207.166"})
    end
 
    @platform_info = @client.route_position_et({:platformno => "#{message}"})
