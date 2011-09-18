@@ -19,7 +19,7 @@ You can test this by passing json to Sinatra
          "messageId":"3034c89c31eecd1d0b86d5e4a5b82dc1",
          "dateTime":"2011-05-23T17:34:54.823Z"}
     }
-}'http://sms2bus.herokuapp.com/incoming
+}'http://localhost:3000/incoming
 
 Continuous Integration
 ----------------------
