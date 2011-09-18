@@ -2,6 +2,13 @@ require File.dirname(__FILE__) + '/spec_helper'
 
 describe 'Connexionz SMS Application' do
 
+  before(:all) do
+    set :sms_user,'foo'
+    set :password,'secret'
+    set :sender_phone, '555-555-1212'
+    set :va_phone, '15555551234'
+  end
+
   describe "the home page" do
     it "Should return the home page" do
       get '/'

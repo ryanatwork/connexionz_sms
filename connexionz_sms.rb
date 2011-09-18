@@ -5,10 +5,10 @@
  require 'smsified'
  require 'json'
 
- set :sms_user, ENV['SMS_USER'] || 'foo'
- set :password, ENV['PASSWORD'] || 'secret'
- set :sender_phone, ENV['SMS_PHONE'] || '555-555-1212'
- set :va_phone, ENV['VA_PHONE'] || '15555551234'
+ set :sms_user, ENV['SMS_USER']
+ set :password, ENV['PASSWORD']
+ set :sender_phone, ENV['SMS_PHONE']
+ set :va_phone, ENV['VA_PHONE']
 
  get '/' do
    haml :root
