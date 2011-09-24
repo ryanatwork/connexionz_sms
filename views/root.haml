@@ -1,14 +1,38 @@
 .hero-unit
   %h1 SMS 2 Bus
-  %p
-    SMS 2 bus is a real time bus arrival notification system using SMS.
-
-%p This system currently interfaces with transit systems that utilize <a href='http://www.connexionz.co.nz/' target="_blank">Connexionz</a>
-%h3 How to Use
+  %br
+  .row
+    .span7
+      %img{:src => 'sms_sample_sc.png'}/
+    .span7
+      %p
+        SMS 2 bus is a real time bus arrival notification system using SMS.
+      %a{:class => "btn primary large",:href => '#use'} Learn more »
+  %br
+  %p This system currently interfaces with transit systems that utilize <a href='http://www.connexionz.co.nz/' target="_blank">Connexionz API</a>
+%a{:name => 'use'}
+%h1 How to use
 %p Send a text message with the 5 digit bus stop number
-%img{:src => 'sms_sample_sc.png'}/
 %br
+%h2  Transit Agencies
 %br
-%h3 Transit Agencies
-%ul
-  %li City of Santa Clarita -  Text the bus stop number to 585-326-0523 (example 10279)
+%dl
+  %dt
+    City of Santa Clarita, CA
+    %dd Text the bus stop number to 585-326-0523 (example 10279)
+    %dd
+      %img{:class => 'thumbnail', :src => 'santa_clarita.png'}
+  %br
+  %br
+  %dt
+    Arlington County, VA
+    %dd Text the bus stop number to 571-762-1172 (example 41215)
+    %dd
+    %img{:class => 'thumbnail',:src => 'arlington_county.png'}
+  %br
+  %br
+  %dt
+    Charlottesville, VA
+    %dd Text the bus stop number to 434-207-2664 (example 11332)
+    %dd
+    %img{:class => 'thumbnail',:src => 'charlottesville.png'}
