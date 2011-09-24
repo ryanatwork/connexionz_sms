@@ -78,8 +78,8 @@ post '/index.json' do
 
   t.ask :name => 'digit',
         :timeout => 60,
-        :say => {:value => "Pick a number from 0 to 9"},
-        :choices => {:value => "[1 DIGIT]"}
+        :say => {:value => "Enter the five digit bus stop number"},
+        :choices => {:value => "[5 DIGIT]"}
 
   t.on :event => 'continue', :next => '/continue.json'
 
