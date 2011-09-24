@@ -17,27 +17,18 @@
  end
 
  get '/sc/:name' do
-   #matches "GET /route_et/19812"
-   @client = Connexionz::Client.new({:endpoint => "http://12.233.207.166"})
-   @platform_info = @client.route_position_et({:platformno => "#{params[:name]}"})
-
-   get_et_info(@platform_info)
+   #matches "GET /sc/19812"
+   get_et_info('sc',params[:name])
  end
 
  get '/va/:name' do
-   #matches "GET /route_et/19812"
-   @client = Connexionz::Client.new({:endpoint => "http://realtime.commuterpage.com"})
-   @platform_info = @client.route_position_et({:platformno => "#{params[:name]}"})
-
-   get_et_info(@platform_info)
+   #matches "GET /va/41215"
+   get_et_info('va',params[:name])
  end
 
 get '/char/:name' do
-   #matches "GET /route_et/19812"
-   @client = Connexionz::Client.new({:endpoint => "http://avlweb.charlottesville.org"})
-   @platform_info = @client.route_position_et({:platformno => "#{params[:name]}"})
-
-   get_et_info(@platform_info)
+   #matches "GET /char/19812"
+   get_et_info('char',params[:name])
  end
 
 
@@ -54,16 +45,14 @@ get '/char/:name' do
    puts text
 
    if sent_to == settings.va_phone
-     @client = Connexionz::Client.new({:endpoint => "http://realtime.commuterpage.com"})
+     location = "va"
    elsif sent_to == settings.char_phone
-    @client = Connexionz::Client.new({:endpoint => "http://avlweb.charlottesville.org"})
+     location = "char"
    else #default to Santa Clarita
-     @client = Connexionz::Client.new({:endpoint => "http://12.233.207.166"})
+     location = "sc"
    end
 
-   @platform_info = @client.route_position_et({:platformno => "#{message}"})
-
-   sms_message = get_et_info(@platform_info)
+   sms_message = get_et_info(location,message)
 
    oneapi = Smsified::OneAPI.new(:username => settings.sms_user, :password => settings.password)
    oneapi.send_sms :address => callerID, :message => sms_message, :sender_address => sent_to
@@ -95,11 +84,7 @@ post '/continue.json' do
 
   answer = v[:result][:actions][:digit][:value]
 
-  @client = Connexionz::Client.new({:endpoint => "http://12.233.207.166"})
-
-  @platform_info = @client.route_position_et({:platformno => answer})
-
-  stop = get_et_info(@platform_info)
+  stop = get_et_info('sc', answer)
 
   t.say(:value => stop)
 
@@ -107,8 +92,17 @@ post '/continue.json' do
 
 end
 
- def get_et_info(platform)
-   @platform_info = platform
+def get_et_info(location,platform)
+
+  if location == "va"
+    @client = Connexionz::Client.new({:endpoint => "http://realtime.commuterpage.com"})
+  elsif location == "char"
+   @client = Connexionz::Client.new({:endpoint => "http://avlweb.charlottesville.org"})
+  else
+    @client = Connexionz::Client.new({:endpoint => "http://12.233.207.166"})
+  end
+
+   @platform_info = @client.route_position_et({:platformno => platform})
 
    if @platform_info.route_position_et.platform.nil?
      sms_message = "No bus stop found"
