@@ -6,8 +6,9 @@ gem 'thin'
 gem 'connexionz'
 gem 'haml'
 gem 'json'
-gem 'smsified'
 gem 'rake'
+gem 'smsified'
+gem 'tropo-webapi-ruby'
 
 group :development, :test do
   gem 'rack-test'
