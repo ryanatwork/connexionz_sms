@@ -215,4 +215,16 @@ describe 'Connexionz SMS Application' do
       last_response.should be_ok
     end
   end
+
+  describe "it should return the arrival times from a phone number" do
+    it "should return the arrival times for the stop" do
+      json = '{"result":{"sessionId":"0f8d686fd6c78d31d34ca095d3a4ea63","callId":"0fe3176780013d3585e46f9994c69af3","state":"ANSWERED","sessionDuration":9,"sequence":1,"complete":true,"error":null,"actions":{"name":"digit","attempts":1,"disposition":"SUCCESS","confidence":100,"interpretation":"10246","utterance":"1 0 2 4 6","value":"10246","xml":"<?xml version=\"1.0\"?>\r\n<result grammar=\"0@1a2ce9f8.vxmlgrammar\">\r\n <interpretation grammar=\"0@1a2ce9f8.vxmlgrammar\" confidence=\"100\">\r\n \r\n <input mode=\"dtmf\">dtmf-1 dtmf-4 dtmf-3 dtmf-3 dtmf-8<\/input>\r\n <\/interpretation>\r\n<\/result>\r\n"}}}'
+      stub_request(:get, "http://12.233.207.166/rtt/public/utility/file.aspx?contenttype=SQLXML&Name=RoutePositionET.xml&platformno=10246").
+        to_return(:status => 200, :body => fixture("route_et.xml"))
+
+      post '/continue.json', json
+      last_response.should be_ok
+    end
+  end
+
 end
