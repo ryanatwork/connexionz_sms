@@ -95,7 +95,11 @@ post '/continue.json' do
 
   answer = v[:result][:actions][:digit][:value]
 
-  stop = get_et_info(answer)
+   @client = Connexionz::Client.new({:endpoint => "http://12.233.207.166"})
+
+   @platform_info = @client.route_position_et({:platformno => answer})
+
+  stop = get_et_info(@platform_info)
 
   t.say(:value => stop)
 
