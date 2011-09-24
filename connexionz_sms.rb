@@ -95,7 +95,9 @@ post '/continue.json' do
 
   answer = v[:result][:actions][:digit][:value]
 
-  t.say(:value => "You said " + answer)
+  stop = get_et_info(answer)
+
+  t.say(:value => stop)
 
   t.response
 
