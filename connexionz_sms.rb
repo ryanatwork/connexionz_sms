@@ -73,16 +73,18 @@ get '/char/:name' do
 end
 
 post '/index.json' do
+
   t = Tropo::Generator.new
 
   t.ask :name => 'digit',
         :timeout => 60,
-        :say => {:value => "Please enter the five digit bus stop number"},
-        :choices => {:value => "[5 DIGIT]"}
+        :say => {:value => "Pick a number from 0 to 9"},
+        :choices => {:value => "[1 DIGIT]"}
 
   t.on :event => 'continue', :next => '/continue.json'
 
   t.response
+
 end
 
 post '/continue.json' do
@@ -98,7 +100,6 @@ post '/continue.json' do
   t.response
 
 end
-
 
  def get_et_info(platform)
    @platform_info = platform
