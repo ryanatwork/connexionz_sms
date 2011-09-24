@@ -75,9 +75,28 @@ end
 post '/index.json' do
   t = Tropo::Generator.new
 
-  t.say "Welcome to Tropo!"
+  t.ask :name => 'digit',
+        :timeout => 30,
+        :say => {:value => "Please enter the five digit bus stop number"},
+        :choice => {:value => "[5 DIGIT]"}
+
+  t.on :event => 'continue', :next => 'continue.json'
 
   t.response
+end
+
+post '/continue.json' do
+
+  v = Tropo::Generator.parse request.env["rack.input"].read
+
+  t = Tropo::Generator.new
+
+  answer = v[:result][:actions][:digit][:value]
+
+  t.say(:value => "You said " + answer)
+
+  t.response
+
 end
 
 
