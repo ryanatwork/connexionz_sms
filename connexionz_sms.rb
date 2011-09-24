@@ -3,7 +3,7 @@
  require 'connexionz'
  require 'haml'
  require 'smsified'
- require 'trop-webapi-ruby'
+ require 'tropo-webapi-ruby'
  require 'json'
 
  set :sms_user, ENV['SMS_USER']
