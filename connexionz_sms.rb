@@ -76,11 +76,11 @@ post '/index.json' do
   t = Tropo::Generator.new
 
   t.ask :name => 'digit',
-        :timeout => 30,
+        :timeout => 60,
         :say => {:value => "Please enter the five digit bus stop number"},
         :choice => {:value => "[5 DIGIT]"}
 
-  t.on :event => 'continue', :next => 'continue.json'
+  t.on :event => 'continue', :next => '/continue.json'
 
   t.response
 end
