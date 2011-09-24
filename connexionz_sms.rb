@@ -72,7 +72,7 @@ get '/char/:name' do
 
 end
 
-post 'index.json' do
+post '/index.json' do
   t = Tropo::Generator.new
 
   t.say "Welcome to Tropo!"
