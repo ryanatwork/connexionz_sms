@@ -3,6 +3,7 @@
  require 'connexionz'
  require 'haml'
  require 'smsified'
+ require 'trop-webapi-ruby'
  require 'json'
 
  set :sms_user, ENV['SMS_USER']
@@ -70,6 +71,15 @@ get '/char/:name' do
    puts sms_message
 
 end
+
+post 'index.json' do
+  t = Tropo::Generator.new
+
+  t.say "Welcome to Tropo!"
+
+  t.response
+end
+
 
  def get_et_info(platform)
    @platform_info = platform
